@@ -59,14 +59,8 @@ class Warehouse(db.Model):
 
 @app.route('/<name>/<email>/<password>/<designation>')
 def index(name, email, password, designation):
-    a = Employee(name=name)
+    a = Employee(name=name, email=email, password=password, designation=designation)
     db.session.add(a)
-    b = Employee(email=email)
-    db.session.add(b)
-    c = Employee(password=password)
-    db.session.add(c)
-    d = Employee(designation=designation)
-    db.session.add(d)
     db.session.commit()
     return '<h1>Added New User!</h1>'
 
