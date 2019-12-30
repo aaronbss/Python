@@ -36,7 +36,7 @@ class Orders(db.Model):
     product_IDs = db.Column(db.String(200))
     quantity = db.Column(db.Integer)
     total_cost = db.Column(db.Integer)
-    billed_at = db.Column(Date, default=_get_date)
+    billed_at = db.Column(db.Date, default=_get_date)
     emp_ID = db.Column(db.Integer, ForeignKey(Employeee.id))
 
     employee = relationship('Employee', foreign_keys='Orders.id')
