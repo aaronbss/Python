@@ -61,9 +61,9 @@ def index(name, email, password, designation):
 
 @app.route('/<name>')
 def get_user(name):
-    user = User.query.filter_by(name=name).first()
+    e = Employee.query.filter_by(name=name).first()
 
-    return f'<h1>The name and ID are: {user.name} , {user.id}</h1>'
+    return f'<h1>The name and ID are: {e.name} , {e.id}</h1>'
 
 
 if __name__ == '__main__':
