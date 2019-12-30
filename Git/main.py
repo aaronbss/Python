@@ -27,13 +27,15 @@ class Employee(db.Model):
 
 
 class Product(db.Model):
+    __tablename__ = 'product'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50))
     category = db.Column(db.String(50))
     description = db.Column(db.String(200))
     barcode = db.Column(db.Integer)
     price = db.Column(db.Integer)
-    warehouse = relationship("Warehouse", backref="Product")
+    warehouse = relationship("Warehouse", backref="product")
+
 
 class Orders(db.Model):
     __tablename__ = 'order'
@@ -46,13 +48,13 @@ class Orders(db.Model):
 
 
 class Warehouse(db.Model):
+    __tablename__ = 'warehouse'
     Shipment_ID = db.Column(db.Integer, primary_key=True)
-    Product_ID = db.Column(db.Integer, db.ForeignKey('Products.id'))
+    Product_ID = db.Column(db.Integer, db.ForeignKey('product.id'))
     Quantity = db.Column(db.Integer)
     shipped_in__at = db.Column(db.Date, default=_get_date)
     Cost = db.Column(db.Integer)
     Barcode = db.Column(db.Integer)
-
 
 
 @app.route('/<name>/<email>/<password>/<designation>')
