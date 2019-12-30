@@ -33,7 +33,7 @@ class Product(db.Model):
     description = db.Column(db.String(200))
     barcode = db.Column(db.Integer)
     price = db.Column(db.Integer)
-
+    warehouse = relationship("Warehouse", backref="Product")
 
 class Orders(db.Model):
     __tablename__ = 'order'
@@ -43,6 +43,16 @@ class Orders(db.Model):
     total_cost = db.Column(db.Integer)
     billed_at = db.Column(db.Date, default=_get_date)
     emp_ID = db.Column(db.Integer, db.ForeignKey('employee.id'))
+
+
+class Warehouse(db.Model):
+    Shipment_ID = db.Column(db.Integer, primary_key=True)
+    Product_ID = db.Column(db.Integer, db.ForeignKey('Products.id'))
+    Quantity = db.Column(db.Integer)
+    shipped_in__at = db.Column(db.Date, default=_get_date)
+    Cost = db.Column(db.Integer)
+    Barcode = db.Column(db.Integer)
+
 
 
 @app.route('/<name>/<email>/<password>/<designation>')
