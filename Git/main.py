@@ -42,13 +42,13 @@ class Orders(db.Model):
     employee = relationship('Employee', foreign_keys='Orders.id')
 
 
-@app.route('/<name>/<name1>')
-def index(name, name1):
-    user = User(name=name)
-    db.session.add(user)
+@app.route('/<name>/<email>/<password>/<designation>')
+def index(name, email, password, designation):
+    a = Employee(name=name)
+    db.session.add(a)
     db.session.commit()
-    student = Student(name=name1)
-    db.session.add(student)
+    b = Employee(name=name1)
+    db.session.add(b)
     db.session.commit()
     return '<h1>Added New User!</h1>'
 
