@@ -4,19 +4,39 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.Electronics'
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://admin:Anthony10c1997@sneaker.c6x6z62swbhb.eu-west-1.rds.amazonaws.com'
 db = SQLAlchemy(app)
 
-class User(db.Model):
+
+def _get_date():
+    return datetime.datetime.now()
+
+
+class Employee(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50))
-    #date_created = db.Column(db.DateTime, default=datetime.now)
+    email = db.Column(db.String(100))
+    password = db.Column(db.String(100))
+    designation = db.Column(db.String(100))
 
 
-class Student(db.Model):
+class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(20))
+    name = db.Column(db.String(50))
+    category = db.Column(db.String(50))
+    description = db.Column(db.String(200))
+    barcode = db.Column(db.Integer)
+    price = db.Column(db.Integer)
+
+
+class Orders(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    product_IDs = db.Column(db.String(200))
+    quantity = db.Column(db.Integer(30))
+    total_cost = db.Column(db.Integer(30))
+    billed_at = db.Column(Date, default=_get_date)
+
 
 
 @app.route('/<name>/<name1>')
