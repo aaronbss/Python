@@ -34,8 +34,8 @@ class Product(db.Model):
 class Orders(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     product_IDs = db.Column(db.String(200))
-    quantity = db.Column(db.Integer(30))
-    total_cost = db.Column(db.Integer(30))
+    quantity = db.Column(db.Integer)
+    total_cost = db.Column(db.Integer)
     billed_at = db.Column(Date, default=_get_date)
     emp_ID = db.Column(db.Integer, ForeignKey(Employeee.id))
 
@@ -47,8 +47,14 @@ def index(name, email, password, designation):
     a = Employee(name=name)
     db.session.add(a)
     db.session.commit()
-    b = Employee(name=name1)
+    b = Employee(name=email)
     db.session.add(b)
+    db.session.commit()
+    c = Employee(name=password)
+    db.session.add(c)
+    db.session.commit()
+    d = Employee(name=designation)
+    db.session.add(d)
     db.session.commit()
     return '<h1>Added New User!</h1>'
 
