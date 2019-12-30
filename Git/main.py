@@ -15,11 +15,13 @@ def _get_date():
 
 
 class Employee(db.Model):
+    __tablename__ = 'employee'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50))
     email = db.Column(db.String(100))
     password = db.Column(db.String(100))
     designation = db.Column(db.String(100))
+    order = relationship("Orders", backref="employee")
 
 
 class Product(db.Model):
@@ -32,12 +34,13 @@ class Product(db.Model):
 
 
 class Orders(db.Model):
+    __tablename__ = 'order'
     id = db.Column(db.Integer, primary_key=True)
     product_IDs = db.Column(db.String(200))
     quantity = db.Column(db.Integer)
     total_cost = db.Column(db.Integer)
     billed_at = db.Column(db.Date, default=_get_date)
-    emp_ID = db.Column(db.Integer, Foreign_Key(Employeee.id))
+    emp_ID = db.Column(db.Integer, ForeignKey(Employeee.id))
 
     employee = relationship('Employee', foreign_keys='Orders.id')
 
