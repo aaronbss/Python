@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
+
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -36,7 +37,9 @@ class Orders(db.Model):
     quantity = db.Column(db.Integer(30))
     total_cost = db.Column(db.Integer(30))
     billed_at = db.Column(Date, default=_get_date)
+    emp_ID = db.Column(db.Integer, ForeignKey(Employeee.id))
 
+    employee = relationship('Employee', foreign_keys='Orders.id')
 
 
 @app.route('/<name>/<name1>')
