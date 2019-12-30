@@ -61,11 +61,11 @@ class Warehouse(db.Model):
 def index(name, email, password, designation):
     a = Employee(name=name)
     db.session.add(a)
-    b = Employee(name=email)
+    b = Employee(email=email)
     db.session.add(b)
-    c = Employee(name=password)
+    c = Employee(password=password)
     db.session.add(c)
-    d = Employee(name=designation)
+    d = Employee(designation=designation)
     db.session.add(d)
     db.session.commit()
     return '<h1>Added New User!</h1>'
