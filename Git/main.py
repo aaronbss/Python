@@ -1,5 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import Column, Integer, ForeignKey
+from sqlalchemy.orm import sessionmaker, relationship
 
 
 app = Flask(__name__)
@@ -47,13 +49,10 @@ class Orders(db.Model):
 def index(name, email, password, designation):
     a = Employee(name=name)
     db.session.add(a)
-    db.session.commit()
     b = Employee(name=email)
     db.session.add(b)
-    db.session.commit()
     c = Employee(name=password)
     db.session.add(c)
-    db.session.commit()
     d = Employee(name=designation)
     db.session.add(d)
     db.session.commit()
