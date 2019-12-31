@@ -57,9 +57,9 @@ class Warehouse(db.Model):
     Barcode = db.Column(db.Integer)
 
 
-@app.route('/<name>/<email>/<password>/<designation>')
-def index(name, email, password, designation):
-    a = Employee(name=name, email=email, password=password, designation=designation)
+@app.route('/<name>/<email>/<password>/<designation>/<price>')
+def index(name, email, password, designation, price):
+    a = Product(name=name, category=email, description=password, barcode=designation, price = price )
     db.session.add(a)
     db.session.commit()
     return '<h1>Added New User!</h1>'
