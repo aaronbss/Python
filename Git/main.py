@@ -36,7 +36,7 @@ class Product(db.Model):
 
 
 class Orders(db.Model):
-    __tablename__ = 'order'
+    __tablename__ = 'orders'
     id = db.Column(db.Integer, primary_key=True)
     product_IDs = db.Column(db.String(200))
     quantity = db.Column(db.Integer)
