@@ -65,7 +65,7 @@ def index(name, email, password, designation, price):
 
 @app.route('/<name>')
 def get_user(name):
-    e = Employee.query.filter_by(name=name).first()
+    e = Product.query.filter_by(name=name).first()
 
     return f'<h1>The name and ID are: {e.name} , {e.id}</h1>'
 
