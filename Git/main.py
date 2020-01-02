@@ -57,7 +57,7 @@ class Warehouse(db.Model):
 
 @app.route('/<name>/<email>/<password>/<designation>/<price>')
 def index(name, email, password, designation, price):
-    a = Product(name=name, category=email, description=password, barcode=designation, price = price )
+    a = Product(name=name, category=email, description=password, barcode=designation, price=price)
     db.session.add(a)
     db.session.commit()
     return '<h1>Added New User!</h1>'
