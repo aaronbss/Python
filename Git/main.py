@@ -1,4 +1,5 @@
 from flask import Flask
+from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, Integer, ForeignKey
 from sqlalchemy.orm import sessionmaker, relationship
@@ -8,6 +9,12 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.Electronics'
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://admin:Anthony10c1997@sneaker.c6x6z62swbhb.eu-west-1.rds.amazonaws.com'
 db = SQLAlchemy(app)
+
+
+engine = db.create_engine('sqlite3:///db.Electronics')
+connection = engine.connect()
+metadata = db.MetaData()
+census = db.Table('census', metadata, autoload=True, autoload_with=engine)
 
 
 def _get_date():
@@ -68,6 +75,13 @@ def get_user(name):
     e = Product.query.filter_by(name=name).first()
 
     return f'<h1>The name and ID are: {e.name} , {e.id}</h1>'
+
+
+@app.route('/')
+def test():
+    #data = db.select([Product])
+    data = session.query(Product).all()
+    return render_template('test.html', data=data)
 
 
 if __name__ == '__main__':
