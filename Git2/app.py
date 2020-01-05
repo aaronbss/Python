@@ -99,3 +99,26 @@ def logout():
     logout_user()
     flash('You logged out!')
     return redirect(url_for('home'))
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        # Grab the user from our User Models table
+        user = User.query.filter_by(email=form.email.data).first()
+
+
+        if user.check_password(form.password.data) and user is not None:
+            #Log in the user
+
+            login_user(user)
+            flash('Logged in successfully bro.')
+            next = request.args.get('next')
+
+            # So let's now check if that next exists or no, otherwise it'll go to
+            # the welcome page.
+            if next == None or not next[0]=='/':
+                next = url_for('welcome_user')
+
+            return redirect(next)
+    return render_template('login.html', form=form)
