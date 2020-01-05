@@ -2,6 +2,13 @@
 {% block content %}
 <div class="jumbotron">
   <h1>product page</h1>
+  <h1>Here is a list of all available products.</h1>
 </div>
-
+<div class="jumbotron">
+  <ul>
+    {% for name in names  %}
+    <li>{{name}}</li>
+    {% endfor %}
+  </ul>
+</div>
 {% endblock %}
