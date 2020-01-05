@@ -75,3 +75,21 @@ def delete():
         flash('The product has been deleted')
         return redirect(url_for('welcome_user'))
     return render_template('delete.html',form=form)
+
+@app.route('/add_product', methods=['GET', 'POST'])
+@login_required
+def add_product():
+        form = AddForm()
+
+        if form.validate_on_submit():
+            Product = products(name=form.name.data,
+                        category=form.category.data,
+                        description=form.description.data,
+                        barcode=form.barcode.data,
+                        price=form.price.data)
+            db.session.add(Product)
+            db.session.commit()
+            flash('Thanks for adding the new product')
+            return redirect(url_for('welcome_user'))
+        return render_template('add_product.html', form=form)
+
