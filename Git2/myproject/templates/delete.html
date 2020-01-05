@@ -3,5 +3,10 @@
 <div class="jumbotron">
   <h1>This is the page where the existing products will be deleted.</h1>
 </div>
-
+<form method="POST">
+    {# This hidden_tag is a CSRF security feature. #}
+    {{ form.hidden_tag() }}
+    {{ form.barcode.label }} {{ form.barcode() }}<br>
+    {{ form.submit() }}
+</form>
 {% endblock %}
