@@ -47,3 +47,10 @@ def home():
 def welcome_user():
     return render_template('welcome_user.html')
 
+@app.route('/products')
+@login_required
+def product():
+    data=db.engine.execute("select name from product")
+    names = [row[0] for row in data]
+    print(names)
+    return render_template('products.html',names=names)
