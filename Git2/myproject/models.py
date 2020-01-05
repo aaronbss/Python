@@ -1,8 +1,6 @@
 from myproject import db,login_manager
 from werkzeug.security import generate_password_hash,check_password_hash
 from flask_login import UserMixin
-# The user_loader decorator whill allow the flask to load the current logged in user.
-# and will also grab their id.
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(user_id)
@@ -28,3 +26,20 @@ class User(db.Model, UserMixin):
 
     def check_password(self,password):
         return check_password_hash(self.password_hash,password)
+
+class products(db.Model, UserMixin):
+
+    __tablename__='product'
+    id = db.Column(db.Integer, primary_key = True)
+    name = db.Column(db.String(64))
+    category = db.Column(db.String(64))
+    description = db.Column(db.String(128))
+    barcode = db.Column(db.String(64), unique=True)
+    price = db.Column(db.Integer)
+
+    def __init__(self, name,category,description, barcode, price):
+        self.name = name
+        self.category = category
+        self.description = description
+        self.barcode = barcode
+        self.price = price

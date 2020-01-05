@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
+from wtforms import StringField, PasswordField, SubmitField, IntegerField
 from wtforms.validators import DataRequired,Email,EqualTo
 from wtforms import ValidationError
 
@@ -27,3 +27,19 @@ class RegistrationForm(FlaskForm):
         # Check if not None for that username!
         if User.query.filter_by(username=field.data).first():
             raise ValidationError('Sorry, that username is taken!')
+
+class AddForm(FlaskForm):
+    name = StringField('name', validators=[DataRequired()])
+    category = StringField('category', validators=[DataRequired()])
+    description = StringField('description', validators=[DataRequired()])
+    barcode = StringField('barcode', validators=[DataRequired()])
+    price = IntegerField('price', validators=[DataRequired()])
+    submit = SubmitField('Add New Product!')
+
+    def add_products(self,field):
+        if product.query.filter_by(barcode=field.data).first():
+            raise ValidationError('barcode has been registered already!')
+
+class delform(FlaskForm):
+    barcode=StringField('Barcode of the product that has to be removed',validators=[DataRequired()])
+    submit = SubmitField('Deleted the product')
