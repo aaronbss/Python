@@ -6,6 +6,9 @@ from sqlalchemy.orm import sessionmaker, relationship
 from sqlalchemy import create_engine
 from sqlalchemy.sql import select
 import matplotlib.pyplot as plt
+import plotly.plotly as py
+import plotly.graph_objs as go
+
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -99,6 +102,20 @@ def test1():
 
 @app.route('/200')
 def graph():
+    # create a figure and axis
+    fig, ax = plt.subplots()
+    # count the occurrence of each class
+    data = Product['quantity']
+    # get x and y data
+    points = data.index
+    frequency = data.values
+    # create bar chart
+    ax.bar(points, frequency)
+    # set title and labels
+    ax.set_title('Wine Review Scores')
+    ax.set_xlabel('Points')
+    ax.set_ylabel('Frequency')
+
 
 if __name__ == '__main__':
     app.run()
