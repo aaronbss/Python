@@ -7,5 +7,19 @@
   <br>
   {% endfor %}
 </div>
+<div class="jumbotron">
+  <h1>
 
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        {{ form.name.label }} {{ form.name() }}<br>
+        {{ form.category.label }} {{ form.category() }}<br>
+        {{ form.description.label }} {{ form.description() }}<br>
+        {{ form.barcode.label }} {{ form.barcode() }}<br>
+        {{ form.price.label }} {{ form.price() }}<br>
+        {{ form.submit() }}
+    </form>
+
+  </h1>
+</div>
 {% endblock %}
