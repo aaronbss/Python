@@ -1,8 +1,11 @@
 from flask import Flask
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Column, Integer, ForeignKey
+from sqlalchemy import Column, Integer, ForeignKey, select, delete
 from sqlalchemy.orm import sessionmaker, relationship
+from sqlalchemy import create_engine
+from sqlalchemy.sql import select
+import matplotlib.pyplot as plt
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -10,11 +13,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.Electronics'
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://admin:Anthony10c1997@sneaker.c6x6z62swbhb.eu-west-1.rds.amazonaws.com'
 db = SQLAlchemy(app)
 
-
-engine = db.create_engine('sqlite3:///db.Electronics')
-connection = engine.connect()
-metadata = db.MetaData()
-census = db.Table('census', metadata, autoload=True, autoload_with=engine)
+engine = create_engine('sqlite:///db.Electronics', echo=True)
 
 
 def _get_date():
@@ -79,10 +78,27 @@ def get_user(name):
 
 @app.route('/')
 def test():
-    #data = db.select([Product])
-    data = session.query(Product).all()
+    conn = engine.connect()
+    s = select([Product])
+    data = conn.execute(s)
+    for row in data:
+        print(row)
     return render_template('test.html', data=data)
 
+
+@app.route('/100')
+def test1():
+    conn = engine.connect()
+    s = Product.query.filter(Product.barcode == 1234747899).delete()
+    #s = Product.delete().where(Product.c.barcode == )
+    data = conn.execute(s)
+    for row in data:
+        print(row)
+    return render_template('test.html', data=data)
+
+
+@app.route('/200')
+def graph():
 
 if __name__ == '__main__':
     app.run()
