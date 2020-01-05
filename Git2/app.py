@@ -11,3 +11,18 @@ from sqlalchemy.orm import sessionmaker,relationship
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(user_id)
+
+class User(db.Model, UserMixin):
+
+    # Create a table in the database
+    __tablename__ = 'users'
+
+    id = db.Column(db.Integer, primary_key = True)
+    email = db.Column(db.String(64), unique=True, index=True)
+    first_name = db.Column(db.String(64))
+    last_name = db.Column(db.String(64))
+    username = db.Column(db.String(64), unique=True, index=True)
+    password_hash = db.Column(db.String(128))
+
+    def check_password(self,password):
+        return check_password_hash(self.password_hash,password)
