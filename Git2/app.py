@@ -93,3 +93,9 @@ def add_product():
             return redirect(url_for('welcome_user'))
         return render_template('add_product.html', form=form)
 
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    flash('You logged out!')
+    return redirect(url_for('home'))
