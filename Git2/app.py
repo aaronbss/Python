@@ -26,3 +26,15 @@ class User(db.Model, UserMixin):
 
     def check_password(self,password):
         return check_password_hash(self.password_hash,password)
+
+    class products(db.Model, UserMixin):
+
+    __tablename__='product'
+    id = db.Column(db.Integer, primary_key = True)
+    name = db.Column(db.String(64))
+    category = db.Column(db.String(64))
+    description = db.Column(db.String(128))
+    barcode = db.Column(db.String(64), unique=True)
+    price = db.Column(db.Integer)
+
+
