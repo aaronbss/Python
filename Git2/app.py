@@ -54,3 +54,24 @@ def product():
     names = [row[0] for row in data]
     print(names)
     return render_template('products.html',names=names)
+
+@app.route('/update')
+@login_required
+def update():
+    return render_template('update.html')
+
+
+@app.route('/delete', methods=['GET', 'POST'])
+@login_required
+def delete():
+    form = delform()
+
+    if form.validate_on_submit():
+        Barcode = products(barcode=form.barcode.data)
+        print(Barcode)
+        data=db.engine.execute("select name from product")
+        names=[row[0] for row in data]
+        print(names)
+        flash('The product has been deleted')
+        return redirect(url_for('welcome_user'))
+    return render_template('delete.html',form=form)
