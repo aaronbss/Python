@@ -37,4 +37,13 @@ class User(db.Model, UserMixin):
     barcode = db.Column(db.String(64), unique=True)
     price = db.Column(db.Integer)
 
+@app.route('/')
+def home():
+    return render_template('home.html')
+
+
+@app.route('/welcome')
+@login_required
+def welcome_user():
+    return render_template('welcome_user.html')
 
