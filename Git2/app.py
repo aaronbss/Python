@@ -53,7 +53,15 @@ def product():
     data=db.engine.execute("select name from product")
     names = [row[0] for row in data]
     print(names)
-    return render_template('products.html',names=names)
+    data1=db.engine.execute("select category from product")
+    names1 = [row[0] for row in data1]
+    data2=db.engine.execute("select barcode from product")
+    names2 = [row[0] for row in data2]
+    data3=db.engine.execute("select price from product")
+    names3 = [row[0] for row in data3]
+    data4=db.engine.execute("select quantity from product")
+    names4 = [row[0] for row in data4]
+    return render_template('products.html',names=names,names1=names1,names3=names3,names2=names2,names4=names4)
 
 @app.route('/update')
 @login_required
