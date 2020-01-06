@@ -1,25 +1,30 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="jumbotron">
-  <h1>This will be the page where new products are added.</h1>
-  {% for i in range (1,10) %}
-  {{i}}
-  <br>
-  {% endfor %}
+  <h1>Add new products here.</h1>
 </div>
-<div class="jumbotron">
   <h1>
-
-    <form method="POST">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+        <form method="POST">
         {{ form.hidden_tag() }}
         {{ form.name.label }} {{ form.name() }}<br>
         {{ form.category.label }} {{ form.category() }}<br>
         {{ form.description.label }} {{ form.description() }}<br>
         {{ form.barcode.label }} {{ form.barcode() }}<br>
         {{ form.price.label }} {{ form.price() }}<br>
+        {{ form.quantity.label }} {{ form.quantity() }}<br>
         {{ form.submit() }}
-    </form>
-
+        <br>
+        <br>
+        </form>
+        </div>
+      </div>
+    </div>
   </h1>
 </div>
 {% endblock %}
