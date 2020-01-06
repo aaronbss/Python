@@ -34,6 +34,7 @@ class AddForm(FlaskForm):
     description = StringField('description', validators=[DataRequired()])
     barcode = StringField('barcode', validators=[DataRequired()])
     price = IntegerField('price', validators=[DataRequired()])
+    quantity = IntegerField('quantity', validators=[DataRequired()])
     submit = SubmitField('Add New Product!')
 
     def add_products(self,field):
