@@ -4,11 +4,17 @@
   <h1>product page</h1>
   <h1>Here is a list of all available products.</h1>
 </div>
-<div class="jumbotron">
-  <ul>
-    {% for name in names  %}
-    <li>{{name}}</li>
-    {% endfor %}
-  </ul>
-</div>
-{% endblock %}
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-2.4">
+        <h3>Product</h3>
+            <div>
+              <ul>
+                {% for name in names  %}
+                <br>
+                {{name}}
+                <br>
+                {% endfor %}
+              </ul>
+            </div>
+      </div>
