@@ -75,11 +75,14 @@ def delete():
     form = delform()
 
     if form.validate_on_submit():
-        Barcode = products(barcode=form.barcode.data)
+        #Barcode = products(barcode=form.barcode.data)
+        Barcode=form.barcode.data
+        #Barcode=str(Barcode)
         print(Barcode)
-        data=db.engine.execute("select name from product")
-        names=[row[0] for row in data]
-        print(names)
+        data=db.engine.execute("delete from product where barcode=?",Barcode)
+        #sql = "delete from product where barcode='%s'"
+        #data=db.engine.execute(sql,Barcode)
+        db.session.commit()
         flash('The product has been deleted')
         return redirect(url_for('welcome_user'))
     return render_template('delete.html',form=form)
