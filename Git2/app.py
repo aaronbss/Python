@@ -129,6 +129,17 @@ def search():
     Barcode=form.barcode.data
     Name=form.name.data
     Category=form.category.data
+    if Barcode!='':
+        data=db.engine.execute("select name from product where barcode=?",Barcode)
+        names = [row[0] for row in data]
+        data1=db.engine.execute("select category from product where barcode=?",Barcode)
+        names1 = [row[0] for row in data1]
+        data2=db.engine.execute("select barcode from product where barcode=?",Barcode)
+        names2 = [row[0] for row in data2]
+        data3=db.engine.execute("select price from product where barcode=?",Barcode)
+        names3 = [row[0] for row in data3]
+        data4=db.engine.execute("select quantity from product where barcode=?",Barcode)
+        names4 = [row[0] for row in data4]
 
 @app.route('/add_product', methods=['GET', 'POST'])
 @login_required
