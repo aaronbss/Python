@@ -3,39 +3,10 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask import render_template, redirect, request, url_for, flash,abort
 from flask_login import login_user,login_required,logout_user
-#from myproject.models import User,products
-from myproject.forms import LoginForm, RegistrationForm,AddForm,delform
+from myproject.models import User,products
+from myproject.forms import LoginForm, RegistrationForm,AddForm,delform,updateform,searchform,sellform
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy.orm import sessionmaker,relationship
-
-@login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(user_id)
-
-class User(db.Model, UserMixin):
-
-    # Create a table in the database
-    __tablename__ = 'users'
-
-    id = db.Column(db.Integer, primary_key = True)
-    email = db.Column(db.String(64), unique=True, index=True)
-    first_name = db.Column(db.String(64))
-    last_name = db.Column(db.String(64))
-    username = db.Column(db.String(64), unique=True, index=True)
-    password_hash = db.Column(db.String(128))
-
-    def check_password(self,password):
-        return check_password_hash(self.password_hash,password)
-
-    class products(db.Model, UserMixin):
-
-    __tablename__='product'
-    id = db.Column(db.Integer, primary_key = True)
-    name = db.Column(db.String(64))
-    category = db.Column(db.String(64))
-    description = db.Column(db.String(128))
-    barcode = db.Column(db.String(64), unique=True)
-    price = db.Column(db.Integer)
 
 @app.route('/')
 def home():
@@ -53,13 +24,13 @@ def product():
     data=db.engine.execute("select name from product")
     names = [row[0] for row in data]
     print(names)
-    data1=db.engine.execute("select category from product")
+    data1=db.engine.execute("select category from product order by id")
     names1 = [row[0] for row in data1]
-    data2=db.engine.execute("select barcode from product")
+    data2=db.engine.execute("select barcode from product order by id")
     names2 = [row[0] for row in data2]
-    data3=db.engine.execute("select price from product")
+    data3=db.engine.execute("select price from product order by id")
     names3 = [row[0] for row in data3]
-    data4=db.engine.execute("select quantity from product")
+    data4=db.engine.execute("select quantity from product order by id")
     names4 = [row[0] for row in data4]
     return render_template('products.html',names=names,names1=names1,names3=names3,names2=names2,names4=names4)
 
@@ -70,6 +41,7 @@ def update():
 
     if form.validate_on_submit():
         #Barcode = products(barcode=form.barcode.data)
+        Barcode=''
         Barcode=form.barcode.data
         Quantity=form.quantity.data
         print(type(Barcode))
@@ -79,6 +51,7 @@ def update():
         flash('The product has been Updated successfully')
         return redirect(url_for('welcome_user'))
     return render_template('update.html',form=form)
+
 
 @app.route('/sell', methods=['GET', 'POST'])
 @login_required
@@ -103,6 +76,9 @@ def sell():
     return render_template('sell.html',form=form)
 
 
+
+
+
 @app.route('/delete', methods=['GET', 'POST'])
 @login_required
 def delete():
@@ -120,6 +96,7 @@ def delete():
         flash('The product has been deleted')
         return redirect(url_for('welcome_user'))
     return render_template('delete.html',form=form)
+
 
 @app.route('/search', methods=['GET', 'POST'])
 @login_required
@@ -168,7 +145,10 @@ def search():
     #data=db.engine.execute(sql,Barcode)
     flash('Search the product ')
     return render_template('search.html',names=names,names1=names1,names3=names3,names2=names2,names4=names4,form=form)
-        
+
+
+
+
 @app.route('/add_product', methods=['GET', 'POST'])
 @login_required
 def add_product():
@@ -179,8 +159,16 @@ def add_product():
                         category=form.category.data,
                         description=form.description.data,
                         barcode=form.barcode.data,
-                        price=form.price.data)
-            db.session.add(Product)
+                        price=form.price.data,
+                        quantity=form.quantity.data)
+            Name=form.name.data
+            Category=form.category.data
+            Description=form.description.data
+            Barcode=form.barcode.data
+            Price=form.price.data
+            Quantity=form.quantity.data
+            data=db.engine.execute("insert into product(name,category,description,barcode,price,quantity) values(?,?,?,?,?,?)",Name,Category,Description,Barcode,Price,Quantity)
+            #db.session.add(Product)
             db.session.commit()
             flash('Thanks for adding the new product')
             return redirect(url_for('welcome_user'))
@@ -192,6 +180,7 @@ def logout():
     logout_user()
     flash('You logged out!')
     return redirect(url_for('home'))
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
