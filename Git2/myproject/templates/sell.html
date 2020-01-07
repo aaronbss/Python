@@ -1,10 +1,13 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
-    
-  </body>
-</html>
+{% extends "base.html" %}
+{% block content %}
+<div class="jumbotron">
+  <h1>This will be the update page</h1>
+</div>
+<form method="POST">
+    {# This hidden_tag is a CSRF security feature. #}
+    {{ form.hidden_tag() }}
+    {{ form.barcode.label }} {{ form.barcode() }}<br>
+    {{ form.quantity.label }} {{ form.quantity() }}<br>
+    {{ form.submit() }}
+</form>
+{% endblock %}
