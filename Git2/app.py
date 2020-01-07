@@ -162,6 +162,12 @@ def search():
         names3 = [row[0] for row in data3]
         data4=db.engine.execute("select quantity from product where category=?",Category)
         names4 = [row[0] for row in data4]
+    else:
+        return redirect(url_for('welcome_user'))
+    #sql = "delete from product where barcode='%s'"
+    #data=db.engine.execute(sql,Barcode)
+    flash('Search the product ')
+    return render_template('search.html',names=names,names1=names1,names3=names3,names2=names2,names4=names4,form=form)
         
 @app.route('/add_product', methods=['GET', 'POST'])
 @login_required
