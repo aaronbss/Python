@@ -80,6 +80,10 @@ def update():
         return redirect(url_for('welcome_user'))
     return render_template('update.html',form=form)
 
+@app.route('/sell', methods=['GET', 'POST'])
+@login_required
+def sell():
+    form = sellform()
 
 @app.route('/delete', methods=['GET', 'POST'])
 @login_required
