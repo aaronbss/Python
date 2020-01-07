@@ -85,6 +85,24 @@ def update():
 def sell():
     form = sellform()
 
+    if form.validate_on_submit():
+        #Barcode = products(barcode=form.barcode.data)
+        Barcode=form.barcode.data
+        Quantity=form.quantity.data
+        data2=db.engine.execute("select quantity from product where barcode=?",Barcode)
+        names = [row[0] for row in data2]
+        #Barcode=str(Barcode)
+        Total=names[0]-Quantity
+        data=db.engine.execute("update product set quantity=? where barcode=?",Total,Barcode)
+        print(Barcode)
+        print(names[0])
+        print(Total)
+        db.session.commit()
+        flash('The product has been Sold successfully')
+        return redirect(url_for('sell'))
+    return render_template('sell.html',form=form)
+
+
 @app.route('/delete', methods=['GET', 'POST'])
 @login_required
 def delete():
