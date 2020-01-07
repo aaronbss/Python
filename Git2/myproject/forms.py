@@ -44,3 +44,9 @@ class AddForm(FlaskForm):
 class delform(FlaskForm):
     barcode=StringField('Barcode of the product that has to be removed',validators=[DataRequired()])
     submit = SubmitField('Deleted the product')
+
+
+class updateform(FlaskForm):
+    barcode=StringField('Barcode of the product that has to be updated',validators=[DataRequired()])
+    quantity = IntegerField('Set Quantity ', validators=[DataRequired()])
+    submit = SubmitField('Update the product')
