@@ -16,10 +16,12 @@
   </li>
     {% if current_user.is_authenticated %}
     <li class="nav-link"><a href="{{ url_for('logout') }}">Log Out</a></li>
-    <li class="nav-link"><a href="{{ url_for('product') }}">product</a></li>
+    <li class="nav-link"><a href="{{ url_for('product') }}">Product</a></li>
     <li class="nav-link"><a href="{{ url_for('add_product') }}">Add New Product</a></li>
     <li class="nav-link"><a href="{{ url_for('delete') }}">Delete Existing Product</a></li>
     <li class="nav-link"><a href="{{ url_for('update') }}">Update Existing product</a></li>
+    <li class="nav-link"><a href="{{ url_for('search') }}">Search product</a></li>
+    <li class="nav-link"><a href="{{ url_for('sell') }}">Sell</a></li>
     {% else %}
     <li class="nav-link"><a href="{{ url_for('login') }}">Log In</a></li>
     <li class="nav-link"><a href="{{ url_for('register') }}">Register</a></li>
