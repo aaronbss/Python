@@ -63,10 +63,22 @@ def product():
     names4 = [row[0] for row in data4]
     return render_template('products.html',names=names,names1=names1,names3=names3,names2=names2,names4=names4)
 
-@app.route('/update')
+@app.route('/update', methods=['GET', 'POST'])
 @login_required
 def update():
-    return render_template('update.html')
+    form = updateform()
+
+    if form.validate_on_submit():
+        #Barcode = products(barcode=form.barcode.data)
+        Barcode=form.barcode.data
+        Quantity=form.quantity.data
+        print(type(Barcode))
+        #Barcode=str(Barcode)
+        data=db.engine.execute("update product set quantity=? where barcode=?",Quantity,Barcode)
+        db.session.commit()
+        flash('The product has been Updated successfully')
+        return redirect(url_for('welcome_user'))
+    return render_template('update.html',form=form)
 
 
 @app.route('/delete', methods=['GET', 'POST'])
