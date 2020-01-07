@@ -56,3 +56,9 @@ class searchform(FlaskForm):
     name = StringField('Enter name of the product to be searched ')
     category = StringField('Enter category of the product to be searched ')
     submit = SubmitField('Search the product')
+
+
+class sellform(FlaskForm):
+    barcode=StringField('Barcode of the product that has to be sold',validators=[DataRequired()])
+    quantity = IntegerField('Quantity to buy ', validators=[DataRequired()])
+    submit = SubmitField('SELL')
