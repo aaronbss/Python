@@ -151,6 +151,18 @@ def search():
         names3 = [row[0] for row in data3]
         data4=db.engine.execute("select quantity from product where name=?",Name)
         names4 = [row[0] for row in data4]
+    elif Category!='':
+        data=db.engine.execute("select name from product where category=?",Category)
+        names = [row[0] for row in data]
+        data1=db.engine.execute("select category from product where category=?",Category)
+        names1 = [row[0] for row in data1]
+        data2=db.engine.execute("select barcode from product where category=?",Category)
+        names2 = [row[0] for row in data2]
+        data3=db.engine.execute("select price from product where category=?",Category)
+        names3 = [row[0] for row in data3]
+        data4=db.engine.execute("select quantity from product where category=?",Category)
+        names4 = [row[0] for row in data4]
+        
 @app.route('/add_product', methods=['GET', 'POST'])
 @login_required
 def add_product():
