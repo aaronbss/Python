@@ -11,3 +11,78 @@
     {{ form.category.label }} {{ form.category() }}<br>
     {{ form.submit() }}
 </form>
+
+<div>
+</div>
+
+</div>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-2.4">
+        <h3>Product</h3>
+            <div>
+              <ul>
+                {% for name in names  %}
+                <br>
+                {{name}}
+                <br>
+                {% endfor %}
+              </ul>
+            </div>
+      </div>
+      <div class="col-sm-2.4">
+        <h3>Category</h3>
+             <div>
+               <ul>
+                 {% for name1 in names1  %}
+                 <br>
+                 {{name1}}
+                 <br>
+                 {% endfor %}
+               </ul>
+             </div>
+             <br>
+
+      </div>
+      <div class="col-sm-2.4">
+        <h3>Barcode</h3>
+        <div>
+          <ul>
+            {% for name2 in names2  %}
+            <br>
+            {{name2}}
+            <br>
+            {% endfor %}
+          </ul>
+        </div>
+             <br>
+
+      </div>
+      <div class="col-sm-2.4">
+        <h3>Price</h3>
+            <div>
+              <ul>
+                {% for name3 in names3  %}
+                <br>
+                {{name3}}
+                <br>
+                {% endfor %}
+              </ul>
+            </div>
+      </div>
+      <div class="col-sm-2.4">
+        <h3>Quantity</h3>
+            <div>
+              <ul>
+                {% for name4 in names4  %}
+                <br>
+                {{name4}}
+                <br>
+                {% endfor %}
+              </ul>
+            </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
