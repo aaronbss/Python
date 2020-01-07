@@ -50,3 +50,9 @@ class updateform(FlaskForm):
     barcode=StringField('Barcode of the product that has to be updated',validators=[DataRequired()])
     quantity = IntegerField('Set Quantity ', validators=[DataRequired()])
     submit = SubmitField('Update the product')
+
+class searchform(FlaskForm):
+    barcode=StringField('Enter barcode to search')
+    name = StringField('Enter name of the product to be searched ')
+    category = StringField('Enter category of the product to be searched ')
+    submit = SubmitField('Search the product')
