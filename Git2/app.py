@@ -121,6 +121,14 @@ def delete():
         return redirect(url_for('welcome_user'))
     return render_template('delete.html',form=form)
 
+@app.route('/search', methods=['GET', 'POST'])
+@login_required
+def search():
+    form = searchform()
+    #Barcode = products(barcode=form.barcode.data)
+    Barcode=form.barcode.data
+    Name=form.name.data
+    Category=form.category.data
 
 @app.route('/add_product', methods=['GET', 'POST'])
 @login_required
